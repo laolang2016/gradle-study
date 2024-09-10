@@ -1,0 +1,45 @@
+[versions]
+javax-servlet-api-version = "3.1.0"
+jackson-version = "2.13.5"
+
+logback-version = "1.2.12"
+
+lombok-version = "1.18.30"
+hutool-version = "5.8.11"
+vavr-version = "0.10.4"
+mapstruct-version = "1.4.2.Final"
+guava-version = "23.0"
+commons-lang3-version = "3.12.0"
+
+testng-version = "6.14.3"
+
+[libraries]
+javax-servlet-api = { module = "javax.servlet:javax.servlet-api", version.ref = "javax-servlet-api-version" }
+
+spring-context = { module = "org.springframework:spring-context" }
+spring-context-support = { module = "org.springframework:spring-context-support" }
+spring-webmvc = { module = "org.springframework:spring-webmvc" }
+
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson-version" }
+jackson-datatype-jdk8 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jdk8", version.ref = "jackson-version" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson-version" }
+jackson-module-parameter-names = { module = "com.fasterxml.jackson.module:jackson-module-parameter-names", version.ref = "jackson-version" }
+
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback-version" }
+
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok-version" }
+hutool-all = { module = "cn.hutool:hutool-all", version.ref = "hutool-version" }
+vavr = { module = "io.vavr:vavr", version.ref = "vavr-version" }
+mapstruct-mapstruct = { module = "org.mapstruct:mapstruct", version.ref = "mapstruct-version" }
+mapstruct-jdk8 = { module = "org.mapstruct:mapstruct-jdk8", version.ref = "mapstruct-version" }
+mapstruct-processor = { module = "org.mapstruct:mapstruct-processor", version.ref = "mapstruct-version" }
+guava = { module = "com.google.guava:guava", version.ref = "guava-version" }
+commons-lang3 = { module = "org.apache.commons:commons-lang3", version.ref = "commons-lang3-version" }
+
+testng = { module = "org.testng:testng", version.ref = "testng-version" }
+
+[bundles]
+spring = ["spring-context", "spring-context-support", "spring-webmvc"]
+jackson = ["jackson-databind", "jackson-datatype-jdk8", "jackson-datatype-jsr310", "jackson-module-parameter-names"]
+mapstruct = ["mapstruct-mapstruct", "mapstruct-jdk8", "mapstruct-processor"]
+logback = ["logback-classic"]
