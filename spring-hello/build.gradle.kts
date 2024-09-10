@@ -1,10 +1,19 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
+/**
+ * 添加插件
+ */
 plugins {
     application
     jacoco
+    id("maven-publish")
+    id("com.github.johnrengelman.shadow") version "7.0.0"
 }
 
+/**
+ * 配置仓库
+ */
 repositories {
     maven("https://maven.aliyun.com/repository/public/")
     maven("https://maven.aliyun.com/repository/spring/")
@@ -12,6 +21,18 @@ repositories {
     mavenCentral()
 }
 
+// 项目坐标
+group = "com.laolang.jx"
+version = "0.1"
+
+/**
+ * 声明启动类
+ */
+application {
+    mainClass = "com.laolang.jx.SpringHelloApp"
+}
+
+// 配置依赖
 dependencies {
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
@@ -24,14 +45,33 @@ dependencies {
     testAnnotationProcessor(libs.lombok)
 }
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(8)
-    }
+/**
+ * 打包时生成 source.jar 和 javadoc.jar
+ */
+configure<JavaPluginExtension> {
+    withSourcesJar()
+    withJavadocJar()
 }
 
-application {
-    mainClass = "com.laolang.jx.SpringHelloApp"
+/**
+ * java 编译配置
+ */
+tasks.withType<JavaCompile> {
+    options.encoding = Charsets.UTF_8.name()
+    sourceCompatibility = JavaVersion.VERSION_1_8.toString()
+    targetCompatibility = JavaVersion.VERSION_1_8.toString()
+}
+
+/**
+ * javadoc
+ */
+tasks.withType<Javadoc> {
+    options {
+        encoding = Charsets.UTF_8.name()
+        charset(Charsets.UTF_8.name())
+    }
+    // 忽略 javadoc 报错
+    isFailOnError = false
 }
 
 /**
@@ -73,5 +113,34 @@ tasks.named<JacocoReport>("jacocoTestReport") {
 
         // jacoco 报告位置
         html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
+    }
+}
+
+/**
+ * 打包可执行 jar
+ */
+tasks.named<ShadowJar>("shadowJar") {
+    archiveBaseName.set(project.name)
+    archiveVersion.set(project.version.toString())
+    archiveFileName.set(project.name + ".jar")
+
+    destinationDirectory.set(layout.buildDirectory.dir("shaded"))
+}
+
+/**
+ * 发布到本地
+ */
+publishing {
+    repositories {
+        mavenLocal()
+    }
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = project.group.toString()
+            artifactId = project.name
+            version = project.version.toString()
+
+            from(components["java"])
+        }
     }
 }
