@@ -34,6 +34,11 @@ application {
 
 // 配置依赖
 dependencies {
+
+    implementation(platform("org.springframework:spring-framework-bom:5.3.31"))
+
+    implementation("org.springframework:spring-context")
+
     compileOnly(libs.lombok)
     annotationProcessor(libs.lombok)
     implementation(libs.guava)
