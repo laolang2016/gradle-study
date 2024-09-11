@@ -1,0 +1,22 @@
+[
+  {
+    "methodName": "testGetById",
+    "config": {
+      "db": {
+        "initSql": "data/sysdict/test_get_by_id.sql",
+        "diffTables": [
+          [
+            "sys_dict_type",
+            "sys_dict_type_after"
+          ]
+        ]
+      }
+    }
+  },
+  {
+    "methodName": "testUpdateStatus",
+    "config": {
+      "initSql": "data/sysdict/test_update_status.sql"
+    }
+  }
+]

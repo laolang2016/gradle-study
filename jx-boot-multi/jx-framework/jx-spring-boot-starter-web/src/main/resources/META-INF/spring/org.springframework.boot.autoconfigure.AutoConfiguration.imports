@@ -1,0 +1,3 @@
+com.laolang.jx.framework.web.config.JxWebConfig
+com.laolang.jx.framework.web.jackson.config.JxJacksonAutoConfiguration
+com.laolang.jx.framework.web.swagger.JxSwaggerConfig
