@@ -4,7 +4,7 @@
 <!-- debug: 当此属性设置为true时，将打印出logback内部日志信息，实时查看logback运行状态。默认值为false -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
 
-    <property name="LOG_PATH" value="../logs/gradle-study/spring-hello" />
+    <property name="LOG_PATH" value="../logs/gradle-study/spring-hello-dev" />
     <property name="LOG_FILE_NAME" value="app" />
     <property name="PATTERN_FORMAT"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %-40.40logger{39} - %msg%n" />

@@ -1,4 +1,5 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import com.laolang.jx.gradle.GradleUtil
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 /**
@@ -31,6 +32,22 @@ version = "0.1"
  */
 application {
     mainClass = "com.laolang.jx.SpringHelloApp"
+}
+
+// profile
+val profile: String = GradleUtil.getProfile("dev")
+// 资源目录
+val resourceDir = "src/main/resources/$profile"
+
+println("profile:$profile")
+
+// 设置资源目录
+sourceSets {
+    main {
+        resources {
+            srcDir(resourceDir)
+        }
+    }
 }
 
 // 配置依赖
@@ -66,6 +83,14 @@ tasks.withType<JavaCompile> {
     options.encoding = Charsets.UTF_8.name()
     sourceCompatibility = JavaVersion.VERSION_1_8.toString()
     targetCompatibility = JavaVersion.VERSION_1_8.toString()
+}
+
+/**
+ * 排除 dev 目录和 test 目录
+ */
+tasks.withType<ProcessResources> {
+    exclude("dev/**")
+    exclude("test/**")
 }
 
 /**
